@@ -35,6 +35,7 @@ class UpdateEmployeeActivity : AppCompatActivity() {
                 etEmpName.setText(employee.name)
                 etDesignation.setText(employee.designation)
                 etDOB.setText(getFormattedDate(employee.dob))
+                sSurgeon.isChecked = (1 == employee.isSurgeon)
             }
         }
 
@@ -79,7 +80,8 @@ class UpdateEmployeeActivity : AppCompatActivity() {
             val updatedName = etEmpName.text.toString()
             val updatedDesignation = etDesignation.text.toString()
             val updatedDOB = myCalendar.timeInMillis
-            val updatedEmployee = Employee(empId!!, updatedName, updatedDOB, updatedDesignation)
+            val updatedIsSurgeon = if (sSurgeon.isChecked) 1 else 0
+            val updatedEmployee = Employee(empId!!, updatedName, updatedDOB, updatedDesignation, updatedIsSurgeon)
 
             DataManager.updateEmployee(databaseHelper, updatedEmployee)
 
