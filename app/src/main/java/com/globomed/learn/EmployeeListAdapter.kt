@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.globomed.learn.GloboMedDBContract.EmployeeEntry.COLUMN_ID
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class EmployeeListAdapter(
@@ -51,8 +52,9 @@ class EmployeeListAdapter(
 
 		fun setListener() {
 			itemView.setOnClickListener{
-				val databaseHelper = DatabaseHelper(context)
-				val employee: Employee? = DataManager.fetchEmployee(databaseHelper, employeeList[pos].id)
+				val intent = Intent(context, UpdateEmployeeActivity::class.java)
+				intent.putExtra(COLUMN_ID, employeeList[pos].id)
+				(context as Activity).startActivityForResult(intent, 2)
 			}
 		}
 
